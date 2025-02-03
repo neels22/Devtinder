@@ -2,15 +2,29 @@
 const express = require("express");
 const app = express(); // instance of an express 
 
-app.use("/hello",(req,res)=>{
-    res.send("this is from difere ")
+
+app.get("/user",(req,res)=>{
+
+    res.send({
+        name:"neel",
+        lastname:"sarode"
+    })
 })
 
-app.use((req,res) => {
-
-    res.send("heello from the server")
+app.post("/user",(req,res)=>{
+    
+    res.send("data stored successfully")
 })
 
+app.delete("/user",(req,res)=>{
+    
+    res.send("data deleted")
+})
+
+app.use("/user",(req,res)=>{
+    
+    res.send("this is from app.use")
+})
 
 
 app.listen(3000,()=>{
