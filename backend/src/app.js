@@ -3,8 +3,9 @@ const express = require("express");
 const app = express(); // instance of an express 
 
 
-app.get("/user",(req,res)=>{
+app.get("/user/:userID",(req,res)=>{
 
+    console.log(req.params)
     res.send({
         name:"neel",
         lastname:"sarode"
