@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/yourdbname
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/usr/src/app  # For live code reloading in development (optional)
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    # For development mode:
+    ports:
+      - "3000:3000"
+    # For production mode (if using the nginx multi-stage Dockerfile):
+    # ports:
+    #   - "80:80"
+    volumes:
+      - ./frontend:/usr/src/app  # Optional for development; remove if building production images
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

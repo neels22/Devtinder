@@ -7,7 +7,7 @@ const mongoose =require("mongoose")
 // the below gives a promise 
 const connectDB = async (  ) => {
     
-mongoose.connect("")
+mongoose.connect("mongodb://localhost:27017/")
 }
 
 module.exports= connectDB
